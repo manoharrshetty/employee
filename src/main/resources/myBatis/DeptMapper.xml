@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.emp.mapper.DeptMapper">
+	
+
+<resultMap id="deptResultMap" type="Dept">
+		<id property="id" column="dept_id" />
+		<result property="name" column="dept_name" />
+		<result property="version" column="version" />
+		<result property="lastModifiedDate" column="last_modified_date" />
+	</resultMap>
+	
+	<sql id="deptColumns"> 
+			dept.dept_id   ,
+			dept.dept_name ,
+			dept.version    ,
+			dept.last_modified_date
+	 </sql>
+	<select id="findAll" resultMap="deptResultMap">
+	
+		SELECT 
+		<include refid="deptColumns"></include>
+		 FROM dept 
+	</select>
+
+
+	<select id="findById" resultMap="deptResultMap" parameterType="java.lang.Integer">
+		SELECT 
+		<include refid="deptColumns"></include>
+		 FROM dept dept where dept_id = #{id}
+	</select>
+
+
+
+	<select id="findByQuery"  resultMap="deptResultMap" parameterType="DeptQuery">
+		SELECT 
+		
+		<include refid="deptColumns"></include>
+		 FROM dept dept where 1 = 1 
+		<if test="id != null">
+    		AND dept_id = #{id}
+ 	 </if>
+  		<if test="name != null">
+    		AND dept_name like #{name}
+  		</if>
+  		
+	</select>
+
+
+	<insert id="save" parameterType="Dept" useGeneratedKeys="true" keyProperty="id">
+		insert into dept(dept_name)
+		values
+		(#{name})
+	</insert>
+	
+	<update id="update" parameterType="Dept"  >
+		update dept set name = #{name} ,
+							version = version + 1
+							where 
+							dept_id = #{id} and
+							version = #{version}
+	
+	</update>
+	
+	
+	<delete id="delete" parameterType="java.lang.Integer">
+		delete from dept where dept_id = #{id}			
+	
+	</delete>
+</mapper>
+
+
