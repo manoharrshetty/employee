@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.emp.mapper.EmpMapper">
+	<!-- this is the key for ehcache to work -->
+	<cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+
 	<resultMap id="empResultMap" type="Emp">
 		<id property="id" column="emp_id" />
 		<result property="lastModifiedDate" column="last_modified_date" />

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    caching configuration
+-->
+<ehcache>
+    <defaultCache eternal="true" maxElementsInMemory="1000" timeToIdleSeconds="3600"
+           timeToLiveSeconds="3600" maxEntriesLocalHeap="1000" maxEntriesLocalDisk="10000000"
+           memoryStoreEvictionPolicy="LRU" statistics="true" />
+    <!-- only cache the queries in [com.emp.mapper.UsersMapper] namespace defined in UserMapper.xml.Remember
+     the name space can be any random name.For easy understanding I have given the namespace
+     to match the package name and class name
+
+     Remember to cache EmpMapper simply copy and paste the cache tag below with the right name space.
+
+     Remember ehcache caching is done based on query.Exact sql statement will be used to cache result.Hence for
+     join table (e.g. emp and dept you have write special service code that firt gets the employee record and then
+     based on department id get the department record.
+
+     to verify cache is working ,enable debug log and search for this text below
+     Cache Hit Ratio [com.emp.mapper.UsersMapper]: 0.5
+     The count greater than 0 means ehcache is working and 0.5 means half of the time the data was retrieved from cache.
+
+
+     -->
+    <cache name ="com.emp.mapper.EmpMapper" eternal="true" maxElementsInMemory="1000" timeToIdleSeconds="3600"
+           timeToLiveSeconds="3600" maxEntriesLocalHeap="1000" maxEntriesLocalDisk="10000000"
+           memoryStoreEvictionPolicy="LRU" statistics="true" />
+
+
+
+</ehcache>

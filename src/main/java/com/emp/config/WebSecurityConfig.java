@@ -29,13 +29,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 //HTTP Basic authentication
-                .httpBasic().and().authorizeRequests().antMatchers(HttpMethod.GET, "/employee/users/**").hasRole("ADMIN")//all request related to users must be an ADMIN
-                .antMatchers(HttpMethod.POST, "/employee/users").hasRole("ADMIN").antMatchers(HttpMethod.PUT, "/employee/users/**").hasRole("ADMIN").antMatchers(HttpMethod.DELETE, "/employee/users/**").hasRole("ADMIN").antMatchers(HttpMethod.GET, "/employee/emp/**").hasAnyRole("USER", "ADMIN")//all get request must be made by user has USER/ADMIN role configured in the user table.
-                .antMatchers(HttpMethod.POST, "/employee/emp").hasAnyRole("USER", "ADMIN").antMatchers(HttpMethod.PUT, "/employee/emp/**").hasAnyRole("USER", "ADMIN").antMatchers(HttpMethod.PATCH, "/employee/emp/**").hasAnyRole("USER", "ADMIN").antMatchers(HttpMethod.DELETE, "/employee/emp/**").hasAnyRole("USER", "ADMIN").antMatchers(HttpMethod.GET, "/employee/dept/**").hasAnyRole("USER", "ADMIN")//all get request must be made by user has USER/ADMIN role configured in the user table.
-                .antMatchers(HttpMethod.POST, "/employee/dept").hasAnyRole("USER", "ADMIN").antMatchers(HttpMethod.PUT, "/employee/dept/**").hasAnyRole("USER", "ADMIN").antMatchers(HttpMethod.PATCH, "/employee/dept/**").hasAnyRole("USER", "ADMIN").antMatchers(HttpMethod.DELETE, "/employee/dept/**").hasAnyRole("USER", "ADMIN").and()
+                .httpBasic().and().authorizeRequests().
+                antMatchers(HttpMethod.GET, "/employee/users/**").hasRole("ADMIN")//all request related to users must be an ADMIN
+                .antMatchers(HttpMethod.POST, "/employee/users").hasRole("ADMIN").
+                antMatchers(HttpMethod.PUT, "/employee/users/**").hasRole("ADMIN").
+                antMatchers(HttpMethod.DELETE, "/employee/users/**").hasRole("ADMIN").
+                antMatchers(HttpMethod.GET, "/employee/emp/**").hasAnyRole("USER", "ADMIN")//all get request must be made by user has USER/ADMIN role configured in the user table.
+                .antMatchers(HttpMethod.POST, "/employee/emp").hasAnyRole("USER", "ADMIN").
+                antMatchers(HttpMethod.PUT, "/employee/emp/**").hasAnyRole("USER", "ADMIN").
+                antMatchers(HttpMethod.PATCH, "/employee/emp/**").hasAnyRole("USER", "ADMIN").
+                antMatchers(HttpMethod.DELETE, "/employee/emp/**").hasAnyRole("USER", "ADMIN").
+                antMatchers(HttpMethod.GET, "/employee/dept/**").hasAnyRole("USER", "ADMIN")//all get request must be made by user has USER/ADMIN role configured in the user table.
+                .antMatchers(HttpMethod.POST, "/employee/dept").hasAnyRole("USER", "ADMIN").
+                antMatchers(HttpMethod.PUT, "/employee/dept/**").hasAnyRole("USER", "ADMIN").
+                antMatchers(HttpMethod.PATCH, "/employee/dept/**").hasAnyRole("USER", "ADMIN").
+                antMatchers(HttpMethod.DELETE, "/employee/dept/**").hasAnyRole("USER", "ADMIN").and()
                 /*disable Cross-Site Request Forgery (CSRF)
                  * BASIC login is also configured with CSRF disabled. This is mostly for demonstrations and not recommended for production systems without careful analysis.
-                 */.csrf().disable().formLogin().disable();
+                 */
+                .csrf().disable().formLogin().disable();
     }
 
 

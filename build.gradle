@@ -36,7 +36,9 @@ dependencies {
  	compile("org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.0")
   	compile("org.springframework.boot:spring-boot-starter-security")
     implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.20'
-	//this is used for connection pool
+    implementation group: 'org.mybatis.caches', name: 'mybatis-ehcache', version: '1.2.1'
+
+    //this is used for connection pool
 	compile group: 'com.zaxxer', name: 'HikariCP', version: '2.6.0'
  	
  	//for aop
