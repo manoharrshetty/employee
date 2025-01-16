@@ -1,9 +1,5 @@
 package com.emp.service;
 
-import static com.emp.enums.MessageKey.DELETE_NOT_SUCCESSFUL;
-import static com.emp.enums.MessageKey.UPDATE_NOT_SUCCESSFUL;
-import static com.emp.util.MessageUtil.MESSAGE_PROPERTIES_INSTANCE;
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +7,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.emp.mapper.EmpMapper;
 import com.emp.mapper.UsersMapper;
-import com.emp.model.Emp;
-import com.emp.model.EmpQuery;
 import com.emp.model.Users;
 import com.emp.model.UsersQuery;
 

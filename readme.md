@@ -23,11 +23,19 @@ the mapping
 between SQL queries and Java objects. It allows you to write SQL directly and map results to Java objects using XML or
 annotations. This makes MyBatis a powerful tool for managing database operations with fine-grained control over queries.
 
--Implemented the Interceptor interface provided by MyBatis to log SQL performance.This way in case of slow DB
-performance we will right away know
-which sql was slow.
-
+-We use the Spring Framework’s declarative transaction management (@Transactional annotation) , that is  made possible with 
+Spring aspect-oriented programming (AOP).This means you will not see rollback,commit ,getConnection,releaseConnection anywhere in our app.Spring
+transaction management takes care of this boiler plate code.
 -Implemented AspectJ, a powerful framework for implementing Aspect-Oriented Programming (AOP) in Java.
+We also used AspectJ to log bad performing sql and bad performing Rest Endpoint,without going through the tedious process of requesting the DBA or
+production support resources.
+e.g.   class -> EmployeeAspect
+@Around("execution(* java.sql.PreparedStatement.execute* (..))")
+public Object aroundPreparedStatementExecute(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+Instant start = null;
+
+
+
 I used it to log the start time and end time of each Spring Boot REST API calls effectively. Also used to log error.All
 these was achieved without
 touching the actual business code.Key benefits :
@@ -35,6 +43,7 @@ Centralized Logging: Logs all API calls in one place without modifying individua
 Performance Tracking: Measures the time taken for each API call.
 Error Handling: Logs exceptions with minimal boilerplate.
 This approach makes the application more maintainable and provides valuable insights into our API's runtime behavior.
+
 
 -In this spring boot application we are using ehcache to cache the employee information.
 This helps to improve performance.

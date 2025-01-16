@@ -55,7 +55,7 @@
 		SELECT 
 		<include refid="empColumns"></include>,
 		<include refid="com.emp.mapper.DeptMapper.deptColumns"></include>
-		 FROM emp emp left join dept dept on  emp.dept_id = dept.dept_id 
+		 FROM emp emp left join dept dept on  emp.dept_id = dept.dept_id
 		 where 1 = 1 
 		<if test="id != null">
     		AND emp_id = #{id}

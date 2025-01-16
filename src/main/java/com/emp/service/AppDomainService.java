@@ -44,12 +44,12 @@ public class AppDomainService<M extends Entity,Q,K> {
 	
 	public M update(M m,K k) {
 		if (k == null) {
-			throw new RuntimeException(String.format(MESSAGE_PROPERTIES_INSTANCE.getMessage(KEY_CANNOT_BE_EMPTY.name())));
+			throw new RuntimeException(String.format(MESSAGE_PROPERTIES_INSTANCE.getProperty(KEY_CANNOT_BE_EMPTY.name())));
 		}
 		
 		int count = mapper.update(m);
 		if (count == 0 ) {
-			throw new RuntimeException(String.format(MESSAGE_PROPERTIES_INSTANCE.getMessage(UPDATE_NOT_SUCCESSFUL.name()), m.getId()));
+			throw new RuntimeException(String.format(MESSAGE_PROPERTIES_INSTANCE.getProperty(UPDATE_NOT_SUCCESSFUL.name()), m.getId()));
 		}
 		
 		return mapper.findById(k);
@@ -60,7 +60,7 @@ public class AppDomainService<M extends Entity,Q,K> {
 			
 		int count  = mapper.delete(id);
 		if (count == 0 ) {
-			throw new RuntimeException(String.format(MESSAGE_PROPERTIES_INSTANCE.getMessage(DELETE_NOT_SUCCESSFUL.name()), id));
+			throw new RuntimeException(String.format(MESSAGE_PROPERTIES_INSTANCE.getProperty(DELETE_NOT_SUCCESSFUL.name()), id));
 		}
 		
 

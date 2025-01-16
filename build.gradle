@@ -43,8 +43,10 @@ dependencies {
  	
  	//for aop
 	compile group: 'org.aspectj', name: 'aspectjweaver', version: '1.9.2'
- 	
-  	
+    compile group: 'org.aspectj', name: 'aspectjrt', version: '1.9.2'
+
+
+
     testCompile('org.springframework.boot:spring-boot-starter-test')
     testCompile('com.jayway.jsonpath:json-path')
 }

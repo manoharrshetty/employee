@@ -28,8 +28,8 @@ public abstract class PropertiesUtil {
 		}
 	}
 
-	public  String getMessage(String messageKey) {
-		return properties.getProperty(messageKey);
+	public  String getProperty(String propertyKey) {
+		return properties.getProperty(propertyKey);
 	}
 
 }
