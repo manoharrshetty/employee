@@ -108,6 +108,11 @@ e.g. logging details after enabling debug log.The below log indicates 50% usage 
 2025-01-13 14:50:24,618 DEBUG org.apache.ibatis.cache.decorators.LoggingCache [https-jsse-nio-8443-exec-9] Cache Hit
 Ratio [com.emp.mapper.EmpMapper]: 0.5
 
+
+# Next Step (TODO)
+Containerized (Dockerize) the spring boot based REST API application so that it can be moved to Azure infrastructure
+using lift-and-shift architecture.This will ensure that the app is scalable.
+
 # git
 -create the new project in intellij.Create the employee project in intellij as gradle project.
 -initialize git in the project.go to VCS -> enable version control integration and select git
