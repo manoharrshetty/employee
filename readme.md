@@ -1,6 +1,6 @@
 Key features :
 
-#Combined Spring Security  and HTTPS
+# Combined Spring Security  and HTTPS
 End-to-End Security: Spring Security handles a) user authentication b) user authorization, while c) HTTPS ensures the communication
 channel is secure (wire level/transmission security).
 HTTPS helps meet industry security standards like GDPR, HIPAA, and PCI DSS.Spring security protects against common
@@ -11,7 +11,7 @@ Session fixation
 By implementing HTTPS and Spring Security together, our application achieves a high level of security for both data in
 transit and application-level access control.
 
-My implementation of Spring Security helps address several issues from the OWASP Top Ten.Here’s how Spring Security aligns with some of the OWASP Top Ten vulnerabilities:
+## My implementation of Spring Security helps address several issues from the OWASP Top Ten.Here’s how Spring Security aligns with some of the OWASP Top Ten vulnerabilities:
 	1.	Broken Access Control :Spring Security provides role-based and method-level security to enforce access controls. 
 	2.	Cryptographic Failures:Spring Security handles password storage with strong encryption (e.g., BCrypt) and ensures secure protocols like HTTPS 
 	3.	Injection :Spring Security doesn’t directly handle SQL injection but integrating with frameworks like MyBatis, which can prevent it using parameterized queries.
@@ -26,7 +26,7 @@ My implementation of Spring Security helps address several issues from the OWASP
 
 
 
-#For our employee SpringBoot REST application we use the widely recommended BCrypt hashing algorithm (one way
+# For our employee SpringBoot REST application we use the widely recommended BCrypt hashing algorithm (one way
 encryption).
 It is a widely used password hashing function designed for secure storage.
 It is particularly favored for its ability to include a salt, its computational cost factor, and its resistance to
@@ -37,7 +37,7 @@ the mapping
 between SQL queries and Java objects. It allows you to write SQL directly and map results to Java objects using XML or
 annotations. This makes MyBatis a powerful tool for managing database operations with fine-grained control over queries.
 
-#If you use the spring-boot-starter-jdbc or spring-boot-starter or 
+# If you use the spring-boot-starter-jdbc or spring-boot-starter or 
 spring-boot-starter-data-jpa starters, you automatically get a dependency to HikariCP.
 We prefer HikariCP for its performance and concurrency. If HikariCP is available, we always choose it.
 Supported Connection Pools
@@ -47,7 +47,7 @@ Otherwise, if the Tomcat pooling DataSource is available, we use it.
 Otherwise, if Commons DBCP2 is available, we use it.
 If none of HikariCP, Tomcat, and DBCP2 are available and if Oracle UCP is available, we use it.
 
-#Enabled spring boot actuator
+# Enabled spring boot actuator
 In essence, Actuator brings production-ready features to our application.
 Monitoring our app, gathering metrics, and understanding traffic or the state of our database becomes trivial with this dependency.
 The main benefit of this library is that we can get production-grade tools without actually having to implement these features ourselves.
@@ -56,11 +56,11 @@ e.g. try https://localhost:8443/management/metrics/hikaricp.connections will dis
 Health metrics include heap memory used,total idle connections in the connection pool,garbage  collection pauses,process cpu usage and many more
 
 
-#We use the Spring Framework’s declarative transaction management (@Transactional annotation) , that is  made possible with 
+# We use the Spring Framework’s declarative transaction management (@Transactional annotation) , that is  made possible with 
 Spring aspect-oriented programming (AOP).This means you will not see rollback,commit ,getConnection,releaseConnection anywhere in our app.Spring
 transaction management takes care of this boiler plate code.
 
-#Implemented AspectJ, a powerful framework for implementing Aspect-Oriented Programming (AOP) in Java.
+# Implemented AspectJ, a powerful framework for implementing Aspect-Oriented Programming (AOP) in Java.
 We also used AspectJ to log bad performing sql and bad performing Rest Endpoint,without going through the tedious process of requesting the DBA or
 production support resources.
 e.g.   class -> EmployeeAspect
@@ -79,7 +79,7 @@ Error Handling: Logs exceptions with minimal boilerplate.
 This approach makes the application more maintainable and provides valuable insights into our API's runtime behavior.
 
 
-#In this spring boot application we are using ehcache to cache the employee information.
+# In this spring boot application we are using ehcache to cache the employee information.
 This helps to improve performance.
 EHCache offers efficient in-memory caching to boost application performance by reducing database load. Key features
 include support for distributed caching, cache eviction policies, and integration with Spring for seamless
@@ -92,7 +92,7 @@ e.g. logging details after enabling debug log.The below log indicates 50% usage 
 2025-01-13 14:50:24,618 DEBUG org.apache.ibatis.cache.decorators.LoggingCache [https-jsse-nio-8443-exec-9] Cache Hit
 Ratio [com.emp.mapper.EmpMapper]: 0.5
 
-#set up git
+# set up git
 -create the new project in intellij.Create the employee project in intellij as gradle project.
 -initialize git in the project.go to VCS -> enable version control integration and select git
 -go to your github profile -> settings -> developer settings -> personal access token -> tokens classic -> generate new
