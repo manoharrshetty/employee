@@ -1,14 +1,16 @@
 # Summary
-This is an Employee application with critical CRUD operations exposed as a Spring based REST API.
+This is an Enterprise ready Employee application with critical CRUD operations exposed as a Spring based REST API.
 The purpose of the app is to show how more can be achieved with less code.The design encourages developers
 to only focus on the business logic and leave the rest to the framework.Non-business functionality such as
 security(authentication,authorization,wire level encryption) ,logging,transaction management,health and performance 
 monitoring,caching etc. are completely handled by framework with little or no code.
 
-# Spring Security
-Combined Spring Security  and HTTPS
-End-to-End Security: Spring Security handles a) user authentication b) user authorization, while c) HTTPS ensures the communication
-channel is secure (wire level/transmission security).
+# Application Security
+In the REST API I have Combined Spring Security  and HTTPS
+End-to-End Security: Spring Security handles 
+1. user authentication 
+2. user authorization, while 
+3. HTTPS ensures the communication channel is secure (wire level/transmission security).
 HTTPS helps meet industry security standards like GDPR, HIPAA, and PCI DSS.Spring security protects against common
 attacks like:
 - Cross-Site Request Forgery (CSRF)
@@ -45,7 +47,8 @@ We use MyBatis,which is a lightweight persistence framework in Java that simplif
 the mapping
 between SQL queries and Java objects. It allows you to write SQL directly and map results to Java objects using XML or
 annotations. This makes MyBatis a powerful tool for managing database operations with fine-grained control over queries.
-
+MyBatis improves performance by providing first level caching by default .Second Level caching is also available.Unfortunately
+it is not very robust and enterprise ready.Hence we have used EHCache for second level caching.
 If you use the spring-boot-starter-jdbc or spring-boot-starter or 
 spring-boot-starter-data-jpa starters, you automatically get a dependency to HikariCP.
 We prefer HikariCP for its performance and concurrency. If HikariCP is available, we always choose it.
@@ -56,7 +59,7 @@ Otherwise, if the Tomcat pooling DataSource is available, we use it.
 Otherwise, if Commons DBCP2 is available, we use it.
 If none of HikariCP, Tomcat, and DBCP2 are available and if Oracle UCP is available, we use it.
 
-# spring boot actuator
+# Application Monitoring
 Enabled spring boot actuator
 In essence, Actuator brings production-ready features to our application.
 Monitoring our app, gathering metrics, and understanding traffic or the state of our database becomes trivial with this dependency.
@@ -89,8 +92,8 @@ Error Handling: Logs exceptions with minimal boilerplate.
 This approach makes the application more maintainable and provides valuable insights into our API's runtime behavior.
 
 
-# Ehcache
-In this spring boot application we are using ehcache to cache the employee information.
+# Caching
+In this spring boot application we are using EHCache to cache the employee information.
 This helps to improve performance.
 EHCache offers efficient in-memory caching to boost application performance by reducing database load. Key features
 include support for distributed caching, cache eviction policies, and integration with Spring for seamless
@@ -103,7 +106,7 @@ e.g. logging details after enabling debug log.The below log indicates 50% usage 
 2025-01-13 14:50:24,618 DEBUG org.apache.ibatis.cache.decorators.LoggingCache [https-jsse-nio-8443-exec-9] Cache Hit
 Ratio [com.emp.mapper.EmpMapper]: 0.5
 
-# set up git
+# git
 -create the new project in intellij.Create the employee project in intellij as gradle project.
 -initialize git in the project.go to VCS -> enable version control integration and select git
 -go to your github profile -> settings -> developer settings -> personal access token -> tokens classic -> generate new
