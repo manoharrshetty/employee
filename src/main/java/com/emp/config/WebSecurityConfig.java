@@ -31,7 +31,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 //HTTP Basic authentication
                 .httpBasic().and().authorizeRequests().
                 antMatchers(HttpMethod.GET, "/employee/users/**").hasRole("ADMIN")//all request related to users must be an ADMIN
-                .antMatchers(HttpMethod.POST, "/employee/users").hasRole("ADMIN").
+                .antMatchers(HttpMethod.GET, "/management/**").hasRole("ADMIN").
+                antMatchers(HttpMethod.POST, "/employee/users").hasRole("ADMIN").
                 antMatchers(HttpMethod.PUT, "/employee/users/**").hasRole("ADMIN").
                 antMatchers(HttpMethod.DELETE, "/employee/users/**").hasRole("ADMIN").
                 antMatchers(HttpMethod.GET, "/employee/emp/**").hasAnyRole("USER", "ADMIN")//all get request must be made by user has USER/ADMIN role configured in the user table.

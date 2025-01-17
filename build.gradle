@@ -38,13 +38,20 @@ dependencies {
     implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.20'
     implementation group: 'org.mybatis.caches', name: 'mybatis-ehcache', version: '1.2.1'
 
-    //this is used for connection pool
-	compile group: 'com.zaxxer', name: 'HikariCP', version: '2.6.0'
+    //supported connection pool
+    // Spring boot always prefer HikariCP for its performance and concurrency.
+    // If HikariCP is available, we always choose it.
+    //this below line is not required because
+    // If you use the spring-boot-starter-jdbc or spring-boot-starter ,
+    // spring-boot-starter-data-jpa starters, you automatically get a dependency to HikariCP.
+	//compile group: 'com.zaxxer', name: 'HikariCP', version: '2.6.0'
  	
  	//for aop
 	compile group: 'org.aspectj', name: 'aspectjweaver', version: '1.9.2'
     compile group: 'org.aspectj', name: 'aspectjrt', version: '1.9.2'
 
+// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-actuator
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: '2.1.9.RELEASE'
 
 
     testCompile('org.springframework.boot:spring-boot-starter-test')
