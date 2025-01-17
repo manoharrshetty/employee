@@ -11,7 +11,9 @@ End-to-End Security: Spring Security handles
 1. user authentication 
 2. user authorization, while 
 3. HTTPS ensures the communication channel is secure (wire level/transmission security).
-HTTPS helps meet industry security standards like GDPR, HIPAA, and PCI DSS.Spring security protects against common
+HTTPS helps meet industry security standards like GDPR, HIPAA, and PCI DSS.
+
+Spring security protects against common
 attacks like:
 - Cross-Site Request Forgery (CSRF)
 - Cross-Site Scripting (XSS)
@@ -19,7 +21,7 @@ attacks like:
 - By implementing HTTPS and Spring Security together, our application achieves a high level of security for both data in
 transit and application-level access control.
 
-My implementation of Spring Security helps address several issues from the OWASP Top Ten.Here’s how Spring Security aligns with some of the OWASP Top Ten vulnerabilities:
+My implementation of Spring Security helps address several issues from the OWASP Top Ten.Here’s how my implementation of Spring Security aligns with some of the OWASP Top Ten vulnerabilities:
 	
 1.	Broken Access Control :Spring Security provides role-based and method-level security to enforce access controls. 
 2.	Cryptographic Failures:Spring Security handles password storage with strong encryption (e.g., BCrypt) and ensures secure protocols like HTTPS 
