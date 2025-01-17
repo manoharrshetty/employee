@@ -1,3 +1,9 @@
+# Summary
+This is an Employee application with critical CRUD operations exposed as a Spring based REST API.
+The purpose of the app is to show how more can be achieved with less code.The design encourages developers
+to only focus on the business logic and leave the rest to the framework.Non-business functionality such as
+security(authentication,authorization,wire level encryption) ,logging,transaction management,health and performance 
+monitoring,caching etc. are completely handled by framework with little or no code.
 
 # Spring Security
 Combined Spring Security  and HTTPS
