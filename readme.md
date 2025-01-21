@@ -5,6 +5,9 @@ to only focus on the business logic and leave the rest to the framework.Non-busi
 security(authentication,authorization,wire level encryption) ,logging,transaction management,health and performance 
 monitoring,caching etc. are completely handled by framework with little or no code.
 
+# Business / Domain specific code.
+Extensive use of generics helped in reuse of code,ensuring type safety and improve code readability
+
 # Application Security
 In the REST API I have Combined Spring Security  and HTTPS
 End-to-End Security: Spring Security handles 
@@ -113,12 +116,3 @@ Ratio [com.emp.mapper.EmpMapper]: 0.5
 Containerized (Dockerize) the spring boot based REST API application so that it can be moved to Azure infrastructure
 using lift-and-shift architecture.This will ensure that the app is scalable.
 
-# git
--create the new project in intellij.Create the employee project in intellij as gradle project.
--initialize git in the project.go to VCS -> enable version control integration and select git
--go to your github profile -> settings -> developer settings -> personal access token -> tokens classic -> generate new
-token classic
--create a new github repo.In github create a repo without the readme.md and .gitignore file
--add the github remote to your intellij project.Git -> manage remote -> + -> git repo url -> ok
--add and commit your project.vcs -> git -> add.vcs -> commit
--push your code to github.select your branch -> token if prompted.

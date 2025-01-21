@@ -10,7 +10,9 @@ public class Runner {
 
 
         PasswordEncoder encoder = new BCryptPasswordEncoder();
-        String password = encoder.encode("admin");
+        String admin = encoder.encode("admin");
+        String support = encoder.encode("support");
+
 
         SpringApplication.run(Application.class, args);
     }
