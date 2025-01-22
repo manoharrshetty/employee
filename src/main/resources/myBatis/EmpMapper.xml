@@ -8,90 +8,94 @@
 		<id property="id" column="emp_id" />
 		<result property="lastModifiedDate" column="last_modified_date" />
 		<result property="version" column="version" />
-		
+
 		<result property="empBasic.firstName" column="emp_first_name" />
 		<result property="empBasic.lastName" column="emp_last_name" />
 		<result property="empBasic.gender" column="emp_gender" />
 		<result property="empBasic.birthDate" column="emp_birth_date" />
 		<result property="empBasic.hireDate" column="emp_hire_date" />
-		
-		 <association property="dept" resultMap="com.emp.mapper.DeptMapper.deptResultMap"/>
+		<result property="empBasic.skills" column="emp_skills" />
+		<result property="empBasic.careerGoal" column="emp_career_goal" />
+		<association property="dept" resultMap="com.emp.mapper.DeptMapper.deptResultMap"/>
 	</resultMap>
 
-	<sql id="empColumns"> 
-			emp.emp_id     as emp_id,
-			emp.emp_first_name ,
-			emp.emp_last_name ,
-			emp.emp_gender  ,
-			emp.emp_birth_date ,
-			emp.emp_hire_date ,
-			emp.version    as version,
-			emp.last_modified_date as last_modified_date
-	 </sql>
-	
+	<sql id="empColumns">
+		emp.emp_id     as emp_id,
+		emp.emp_first_name ,
+		emp.emp_last_name ,
+		emp.emp_gender  ,
+		emp.emp_birth_date ,
+		emp.emp_hire_date ,
+		emp.emp_skills,
+		emp.emp_career_goal,
+		emp.version    as version,
+		emp.last_modified_date as last_modified_date
+	</sql>
+
 
 	<select id="findAll" resultMap="empResultMap">
-		SELECT 
+		SELECT
 		<include refid="empColumns"></include>,
 		<include refid="com.emp.mapper.DeptMapper.deptColumns"></include>
-		 FROM emp emp left join dept dept on emp.dept_id = dept.dept_id
+		FROM emp emp left join dept dept on emp.dept_id = dept.dept_id
 	</select>
 
 
 	<select id="findById" resultMap="empResultMap" parameterType="java.lang.Integer">
-	
-		SELECT 
-		
+
+		SELECT
+
 		<include refid="empColumns"></include>,
 		<include refid="com.emp.mapper.DeptMapper.deptColumns"></include>
-		 FROM emp emp left join dept dept on emp.dept_id = dept.dept_id 
-		 where emp.emp_id = #{id}
+		FROM emp emp left join dept dept on emp.dept_id = dept.dept_id
+		where emp.emp_id = #{id}
 	</select>
 
 
 
 
 	<select id="findByQuery"  resultMap="empResultMap" parameterType="EmpQuery">
-		SELECT 
+		SELECT
 		<include refid="empColumns"></include>,
 		<include refid="com.emp.mapper.DeptMapper.deptColumns"></include>
-		 FROM emp emp left join dept dept on  emp.dept_id = dept.dept_id
-		 where 1 = 1 
+		FROM emp emp left join dept dept on  emp.dept_id = dept.dept_id
+		where 1 = 1
 		<if test="id != null">
-    		AND emp_id = #{id}
- 	 </if>
-  		<if test="firstName != null">
-    		AND emp_first_name like #{firstName}
-  		</if>
-  		<if test="lastName != null">
-    		AND emp_last_name like #{lastName}
-  		</if>
+			AND emp_id = #{id}
+		</if>
+		<if test="firstName != null">
+			AND emp_first_name like #{firstName}
+		</if>
+		<if test="lastName != null">
+			AND emp_last_name like #{lastName}
+		</if>
 	</select>
 
 
 	<insert id="save" parameterType="Emp" useGeneratedKeys="true" keyProperty="id">
-		insert into emp(emp_first_name,emp_last_name,emp_gender,emp_birth_date,emp_hire_date,dept_id)
+		insert into emp(emp_first_name,emp_last_name,emp_gender,emp_birth_date,emp_hire_date,dept_id,emp_skills,emp_career_goal)
 		values
-		(#{empBasic.firstName},#{empBasic.lastName},#{empBasic.gender},#{empBasic.birthDate},#{empBasic.hireDate},#{dept.id})
+		(#{empBasic.firstName},#{empBasic.lastName},#{empBasic.gender},#{empBasic.birthDate},#{empBasic.hireDate},#{dept.id},#{empBasic.skills},#{empBasic.careerGoal})
 	</insert>
-	
+
 	<update id="update" parameterType="Emp"  >
 		update emp set emp_first_name = #{empBasic.firstName} ,
-							emp_last_name = #{empBasic.lastName},
-							emp_gender = #{empBasic.gender} ,
-							emp_birth_date = #{empBasic.birthDate},
-							emp_hire_date  = #{empBasic.hireDate} ,
-							version = version + 1
-							where 
-							emp_id = #{id}
-	
+		emp_last_name = #{empBasic.lastName},
+		emp_gender = #{empBasic.gender} ,
+		emp_birth_date = #{empBasic.birthDate},
+		emp_hire_date  = #{empBasic.hireDate} ,
+		emp_skills  = #{empBasic.skills} ,
+		emp_career_goal  = #{empBasic.careerGoal} ,
+		version = version + 1
+		where
+		emp_id = #{id}
+
 	</update>
-	
-	
+
+
 	<delete id="delete" parameterType="java.lang.Integer">
-		delete from emp where emp_id = #{id}			
-	
+		delete from emp where emp_id = #{id}
+
 	</delete>
 </mapper>
-
 
