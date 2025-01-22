@@ -9,40 +9,7 @@ public class EmpBasic  {
     private String gender;
     private Date birthDate;
     private Date hireDate;
-
-
-	private String skills;
-
-	private String careerGoal;
-
-
-	public String getSkills() {
-		return skills;
-	}
-
-	public void setSkills(String skills) {
-		this.skills = skills;
-	}
-
-	public String getCareerGoal() {
-		return careerGoal;
-	}
-
-	public void setCareerGoal(String careerGoal) {
-		this.careerGoal = careerGoal;
-	}
-
-	public String getTrainingRecommendation() {
-		return trainingRecommendation;
-	}
-
-	public void setTrainingRecommendation(String trainingRecommendation) {
-		this.trainingRecommendation = trainingRecommendation;
-	}
-
-	private String trainingRecommendation;
-
-
+    
 	public String getFirstName() {
 		return firstName;
 	}
