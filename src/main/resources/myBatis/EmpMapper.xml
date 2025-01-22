@@ -14,8 +14,9 @@
 		<result property="empBasic.gender" column="emp_gender" />
 		<result property="empBasic.birthDate" column="emp_birth_date" />
 		<result property="empBasic.hireDate" column="emp_hire_date" />
-		
-		 <association property="dept" resultMap="com.emp.mapper.DeptMapper.deptResultMap"/>
+		<result property="empBasic.skills" column="emp_skills" />
+		<result property="empBasic.careerGoal" column="emp_career_goal" />
+	 <association property="dept" resultMap="com.emp.mapper.DeptMapper.deptResultMap"/>
 	</resultMap>
 
 	<sql id="empColumns"> 
@@ -25,6 +26,8 @@
 			emp.emp_gender  ,
 			emp.emp_birth_date ,
 			emp.emp_hire_date ,
+		    emp.emp_skills,
+		    emp.emp_career_goal,
 			emp.version    as version,
 			emp.last_modified_date as last_modified_date
 	 </sql>
@@ -70,9 +73,9 @@
 
 
 	<insert id="save" parameterType="Emp" useGeneratedKeys="true" keyProperty="id">
-		insert into emp(emp_first_name,emp_last_name,emp_gender,emp_birth_date,emp_hire_date,dept_id)
+		insert into emp(emp_first_name,emp_last_name,emp_gender,emp_birth_date,emp_hire_date,dept_id,emp_skills,emp_career_goal)
 		values
-		(#{empBasic.firstName},#{empBasic.lastName},#{empBasic.gender},#{empBasic.birthDate},#{empBasic.hireDate},#{dept.id})
+		(#{empBasic.firstName},#{empBasic.lastName},#{empBasic.gender},#{empBasic.birthDate},#{empBasic.hireDate},#{dept.id},#{empBasic.skills},#{empBasic.careerGoal})
 	</insert>
 	
 	<update id="update" parameterType="Emp"  >
@@ -81,6 +84,8 @@
 							emp_gender = #{empBasic.gender} ,
 							emp_birth_date = #{empBasic.birthDate},
 							emp_hire_date  = #{empBasic.hireDate} ,
+							emp_skills  = #{empBasic.skills} ,
+							emp_career_goal  = #{empBasic.careerGoal} ,
 							version = version + 1
 							where 
 							emp_id = #{id}

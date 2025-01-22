@@ -33,8 +33,12 @@ public class WebSecurityConfig  {
         unauthorized” error (401).
          */
 
-
-
+        /*
+            Disables CSRF (Cross-Site Request Forgery) protection.
+        Cross-Site Request Forgery (CSRF) protection is a crucial element.
+        CSRF attacks trick a browser into executing unwanted actions in a web application where a user is authenticated.
+        For stateless REST APIs, particularly those using token-based authentication, disabling CSRF is a common and generally safe decision
+         */
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(req -> req
                         .requestMatchers(HttpMethod.GET, "/employee/users/**").hasRole("ADMIN")//all request related to users must be an ADMIN
