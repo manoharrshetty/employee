@@ -79,7 +79,7 @@ It is particularly favored for its ability to include a salt, its computational 
 brute-force attacks. In Spring Security, BCrypt is implemented via the BCryptPasswordEncoder class.
 
 Example
-1.  e.g com/emp/config/AppConfig.java -> passwordEncoder() -> PasswordEncoder encoder = new BCryptPasswordEncoder();
+1.  com/emp/config/AppConfig.java -> passwordEncoder() -> PasswordEncoder encoder = new BCryptPasswordEncoder();
 
 
 # MyBatis
@@ -100,7 +100,7 @@ Otherwise, if Commons DBCP2 is available, we use it.
 If none of HikariCP, Tomcat, and DBCP2 are available and if Oracle UCP is available, we use it.
 
 Example
-1. e.g. main/resources/myBatis/EmpMapper.xml
+1. main/resources/myBatis/EmpMapper.xml
 
 # Application Monitoring
 Enabled spring boot actuator
@@ -112,7 +112,7 @@ e.g. try https://localhost:8443/management/metrics/hikaricp.connections will dis
 Health metrics include heap memory used,total idle connections in the connection pool,garbage  collection pauses,process cpu usage and many more
 
 Example
-1. e.g. src/main/resources/application.properties -> management.endpoints.web.exposure.include=health,info,metrics 
+1. src/main/resources/application.properties -> management.endpoints.web.exposure.include=health,info,metrics 
 
 
 # declarative transaction management (@Transactional annotation) 
@@ -150,6 +150,7 @@ configuration.
 EHCache not only improves performance through in-memory caching but also handles cache consistency automatically.
 Whenever an update, insert, or delete operation occurs, EHCache ensures the cache is updated, preventing stale data from
 being served.
+
 Example
 1. src/main/resources/myBatis/EmpMapper.xml
 
