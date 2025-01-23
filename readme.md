@@ -153,8 +153,7 @@ being served.
 
 Example
 1. src/main/resources/myBatis/EmpMapper.xml
-
-logging details after enabling debug log.The below log indicates 50% usage of the cache to retrieve employee after
+2. logging details after enabling debug log.The below log indicates 50% usage of the cache to retrieve employee after
 2nd get postman request.
 2025-01-13 14:50:24,618 DEBUG org.apache.ibatis.cache.decorators.LoggingCache [https-jsse-nio-8443-exec-9] Cache Hit
 Ratio [com.emp.mapper.EmpMapper]: 0.5
