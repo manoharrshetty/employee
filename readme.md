@@ -15,6 +15,7 @@ AI and Spring AI was incorporated into the application to
 significantly enhance the functionality and efficiency of an employee maintenance REST API.
 Example usage is to get a Personalized Employee Insights .AI can generate personalized insights based on employee data.In the case
 of this application,we use OpenAI to recommend training for employee based on their present skills and their career goal.
+e.g. com/emp/ai/AiServiceImpl.java
 
 # Enterprise Integration patterns
 
@@ -65,7 +66,7 @@ My implementation of Spring Security helps address several issues from the OWASP
 9.	Security Logging and Monitoring Failures : While Spring Security doesn’t include logging out of the box, integrating it with tools like Spring Boot Actuator or external monitoring systems can help.
 10.	Server-Side Request Forgery (SSRF)  :Spring Security doesn’t directly handle SSRF, but you can mitigate it by validating and sanitizing user input, controlling outbound requests, and blocking unnecessary network access.
 
-
+e.g. com/emp/config/WebSecurityConfig.java
 
 # BCrypt hashing algorithm
 For our employee SpringBoot REST application we use the widely recommended BCrypt hashing algorithm (one way
@@ -73,6 +74,8 @@ encryption).
 It is a widely used password hashing function designed for secure storage.
 It is particularly favored for its ability to include a salt, its computational cost factor, and its resistance to
 brute-force attacks. In Spring Security, BCrypt is implemented via the BCryptPasswordEncoder class.
+e.g com/emp/config/AppConfig.java -> passwordEncoder() -> PasswordEncoder encoder = new BCryptPasswordEncoder();
+
 
 # MyBatis
 We use MyBatis,which is a lightweight persistence framework in Java that simplifies database interaction by automating
@@ -90,6 +93,7 @@ We prefer HikariCP for its performance and concurrency. If HikariCP is available
 Otherwise, if the Tomcat pooling DataSource is available, we use it.
 Otherwise, if Commons DBCP2 is available, we use it.
 If none of HikariCP, Tomcat, and DBCP2 are available and if Oracle UCP is available, we use it.
+e.g. main/resources/myBatis/EmpMapper.xml
 
 # Application Monitoring
 Enabled spring boot actuator
@@ -100,20 +104,21 @@ The actuator mainly exposes operational information about the running applicatio
 e.g. try https://localhost:8443/management/metrics/hikaricp.connections will display total mysql connections in the pool.
 Health metrics include heap memory used,total idle connections in the connection pool,garbage  collection pauses,process cpu usage and many more
 
+e.g. src/main/resources/application.properties -> management.endpoints.web.exposure.include=health,info,metrics 
+
 
 # declarative transaction management (@Transactional annotation) 
 We use the Spring Framework’s declarative transaction management (@Transactional annotation) , that is  made possible with
 Spring aspect-oriented programming (AOP).This means you will not see rollback,commit ,getConnection,releaseConnection anywhere in our app.Spring
 transaction management takes care of this boiler plate code.
+e.g. com/emp/service/EmpServiceImpl.java
+
 
 # AspectJ and AOP
 Implemented AspectJ, a powerful framework for implementing Aspect-Oriented Programming (AOP) in Java.
 We also used AspectJ to log bad performing sql and bad performing Rest Endpoint,without going through the tedious process of requesting the DBA or
 production support resources.
-e.g.   class -> EmployeeAspect
-@Around("execution(* java.sql.PreparedStatement.execute* (..))")
-public Object aroundPreparedStatementExecute(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
-Instant start = null;
+e.g.   com/aspectj/db/EmployeeAspect.java
 
 I used it to log the start time and end time of each Spring Boot REST API calls effectively. Also used to log error.All
 these was achieved without
@@ -133,7 +138,8 @@ configuration.
 EHCache not only improves performance through in-memory caching but also handles cache consistency automatically.
 Whenever an update, insert, or delete operation occurs, EHCache ensures the cache is updated, preventing stale data from
 being served.
-e.g. logging details after enabling debug log.The below log indicates 50% usage of the cache to retrieve employee after
+e.g. src/main/resources/myBatis/EmpMapper.xml
+logging details after enabling debug log.The below log indicates 50% usage of the cache to retrieve employee after
 2nd get postman request.
 2025-01-13 14:50:24,618 DEBUG org.apache.ibatis.cache.decorators.LoggingCache [https-jsse-nio-8443-exec-9] Cache Hit
 Ratio [com.emp.mapper.EmpMapper]: 0.5
