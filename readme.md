@@ -3,13 +3,40 @@ This is an Enterprise ready Employee application with critical CRUD operations e
 The purpose of the app is to show how more can be achieved with less code.The design encourages developers
 to only focus on the business logic and leave the rest to the framework.Non-business functionality such as
 security(authentication,authorization,wire level encryption) ,logging,transaction management,health and performance 
-monitoring,caching etc. are completely handled by framework with little or no code.
-
-# Business / Domain specific code.
+monitoring,caching etc. are completely handled by framework with little or no code.AI was used to get personal employee 
+insights.
 Extensive use of generics helped in reuse of code,ensuring type safety and improve code readability
+Technology stack I am using is Spring Boot,Spring Boot Actuator, Spring Transaction Management,
+Spring Security, MySQL, AspectJ, Spring AI, Ehcache and MyBatis
+
+
+# AI and Spring AI
+AI and Spring AI was incorporated into the application to  
+significantly enhance the functionality and efficiency of an employee maintenance REST API.
+Example usage is to get a Personalized Employee Insights .AI can generate personalized insights based on employee data.In the case
+of this application,we use OpenAI to recommend training for employee based on their present skills and their career goal.
+
+# Enterprise Integration patterns
+
+Here’s a concise summary of the enterprise patterns I am  following by 
+using Spring Boot, Spring Security, AspectJ, Spring AI, Ehcache, and MyBatis:
+
+1. Dependency Injection (DI) / IoC: Spring Boot manages object creation and dependency injection, promoting loose coupling.
+Model-View-Controller (MVC): Spring Boot organizes the application into presentation, business logic, and data access layers.
+2. Data Access Object (DAO): MyBatis abstracts database interactions, isolating persistence logic from business logic.
+3. Aspect-Oriented Programming (AOP): AspectJ and Spring separate cross-cutting concerns like logging, security, or transaction management.
+4. Caching Pattern: Ehcache optimizes performance by temporarily storing frequently accessed data in memory.
+5. Proxy Pattern: Spring Security uses proxies for access control, while Ehcache applies it for caching mechanisms.
+6. Observer Pattern: Spring Boot Actuator and events allow monitoring and notifying subscribers of changes or metrics.
+7. Template Method Pattern: MyBatis simplifies database queries using predefined templates for CRUD operations.
+8. Factory Pattern: Spring AI dynamically creates and configures components like machine learning models or services.
+9. Authentication and Authorization Patterns: Spring Security implements role-based access control and secure session management.
+10. Transaction Management: Spring manages transactions declaratively, ensuring consistency and integrity.
+11. Layered Architecture: Your application is structured into presentation, business, and persistence layers for modularity.
+These patterns collectively enable scalability, modularity, and maintainability of our REST API. 
 
 # Application Security
-In the REST API I have Combined Spring Security  and HTTPS
+In the REST API I have combined Spring Security  and HTTPS
 End-to-End Security: Spring Security handles 
 1. user authentication 
 2. user authorization, while 

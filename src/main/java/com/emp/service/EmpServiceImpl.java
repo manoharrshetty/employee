@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import com.emp.ai.AiService;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,9 @@ import com.emp.model.EmpQuery;
 public class EmpServiceImpl  implements EmpService {
 
 	private final AppDomainService<Emp,EmpQuery,Integer> employeeService;
-	private final ChatClient chatClient;
+
+	private final AiService aiService;
+
 
 
 	/**The below constructor is same as doing what we are doing below.
@@ -30,10 +33,9 @@ public class EmpServiceImpl  implements EmpService {
 
 
 	@Autowired
-	public EmpServiceImpl(EmpMapper empMapper, ChatClient chatClient) {
+	public EmpServiceImpl(EmpMapper empMapper,AiService aiService) {
 		this.employeeService =  new AppDomainService<>(empMapper);
-		this.chatClient = chatClient;
-
+		this.aiService = aiService;
 	}
 
 
@@ -70,17 +72,11 @@ public class EmpServiceImpl  implements EmpService {
 
 		List<Emp> employees = employeeService.findByQuery(employeeQuery);
 		employees.forEach(e -> {
+			String response =
+					aiService.getResponse(
+							String.format("Recommend training based on the following employee skills: %s  and career goals %s ",  e.getEmpBasic().getSkills(), e.getEmpBasic().getCareerGoal()));
 
-			Map<String, String> response = Map.of(
-					"completion",
-					chatClient.prompt()
-							.user("Recommend training based on the following employee skills: " + e.getEmpBasic().getSkills() + " and  career goals: " + e.getEmpBasic().getCareerGoal())
-							.call()
-							.content());
-			String mapAsString = response.keySet().stream()
-					.map(key -> response.get(key))
-					.collect(Collectors.joining(", ", "{", "}"));
-			e.getEmpBasic().setTrainingRecommendation(mapAsString);
+			e.getEmpBasic().setTrainingRecommendation(response);
 
 
 		});
