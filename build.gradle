@@ -30,6 +30,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.4'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'com.mysql:mysql-connector-j'
     implementation "org.aspectj:aspectjrt:1.9.22"
     implementation "org.aspectj:aspectjweaver:1.9.22"
