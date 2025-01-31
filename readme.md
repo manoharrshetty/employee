@@ -5,7 +5,7 @@ to only focus on the business logic and leave the rest to the framework.Non-busi
 security(authentication,authorization,wire level encryption) ,logging,transaction management,health and performance 
 monitoring,caching etc. are completely handled by framework with little or no code.AI was used to get personal employee 
 insights.
-Extensive use of generics helped in reuse of code,ensuring type safety and improve code readability
+Extensive use of established enterprise patterns and generics helped in reuse of code,ensuring type safety and improve code readability
 Technology stack I am using is Spring Boot,Spring Boot Actuator, Spring Transaction Management,
 Spring Security, MySQL, AspectJ, Spring AI, Ehcache and MyBatis
 
