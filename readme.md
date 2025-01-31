@@ -14,7 +14,7 @@ Spring Security, MySQL, AspectJ, Spring AI, Ehcache and MyBatis
 AI and Spring AI was incorporated into the application to  
 significantly enhance the functionality and efficiency of an employee maintenance REST API.
 Example usage is to get a Personalized Employee Insights .AI can generate personalized insights based on employee data.In the case
-of this application,we use OpenAI to recommend training for employee based on their present skills and their career goal.
+of this application,I used OpenAI to recommend training for employee based on their present skills and their career goal.
 
 Example 
 1. com/emp/ai/AiServiceImpl.java
@@ -27,6 +27,8 @@ This application is built with a vendor-agnostic and portable architecture at it
 3. Prometheus is used for monitoring and metrics collection, providing flexibility to run on any infrastructure without relying on proprietary cloud solutions.
 4. MyBatis and EhCache are data-source agnostic, allowing the application to easily integrate with any database or caching solution, further ensuring that it’s not dependent on a specific database vendor.
 5. Spring Security and Spring Transaction are configured in a modular, flexible way, ensuring the application’s security and transaction management work across different systems and environments, without relying on vendor-specific security or transaction handling mechanisms.
+6. Spring AI enables easy integration of AI capabilities, such as machine learning models, into the application without tying the application to a specific cloud provider's AI infrastructure. It ensures portability by offering frameworks that allow the use of various AI tools and models across different platforms, making the solution flexible and easily adaptable to different environments.
+7. AspectJ and Spring AOP (Aspect-Oriented Programming) allow for the modularization of cross-cutting concerns such as logging, transaction management, and security, without hard-coding these concerns into business logic. This enables the application to maintain its flexibility and portability, allowing for easier maintenance and extension across multiple environments, free from vendor-specific constraints.
 
 By leveraging these technologies in a modular and cloud-agnostic way, the application ensures easy migration and deployment in various cloud environments or on-prem setups, providing long-term scalability and flexibility without the risk of vendor lock-in.
 
@@ -83,7 +85,7 @@ Example
 1. com/emp/config/WebSecurityConfig.java
 
 # BCrypt hashing algorithm
-For our employee SpringBoot REST application we use the widely recommended BCrypt hashing algorithm (one way
+For our employee SpringBoot REST application I have used the widely recommended BCrypt hashing algorithm (one way
 encryption).
 It is a widely used password hashing function designed for secure storage.
 It is particularly favored for its ability to include a salt, its computational cost factor, and its resistance to
@@ -142,7 +144,7 @@ Example
 1. src/main/resources/application.properties -> management.endpoints.web.exposure.include=health,info,metrics 
 
 
-# declarative transaction management (@Transactional annotation) 
+# Declarative transaction management  
 We use the Spring Framework’s declarative transaction management (@Transactional annotation) , that is  made possible with
 Spring aspect-oriented programming (AOP).This means you will not see rollback,commit ,getConnection,releaseConnection anywhere in our app.Spring
 transaction management takes care of this boiler plate code.
@@ -153,7 +155,7 @@ Example
 
 # AspectJ and AOP
 Implemented AspectJ, a powerful framework for implementing Aspect-Oriented Programming (AOP) in Java.
-We also used AspectJ to log bad performing sql and bad performing Rest Endpoint,without going through the tedious process of requesting the DBA or
+I also used AspectJ to log bad performing sql and bad performing Rest Endpoint,without going through the tedious process of requesting the DBA or
 production support resources.
 
 Example 
@@ -169,7 +171,7 @@ This approach makes the application more maintainable and provides valuable insi
 
 
 # Caching
-In this spring boot application we are using EHCache to cache the employee information.
+In this spring boot application I used EHCache to cache the employee information.
 This helps to improve performance.
 EHCache offers efficient in-memory caching to boost application performance by reducing database load. Key features
 include support for distributed caching, cache eviction policies, and integration with Spring for seamless
