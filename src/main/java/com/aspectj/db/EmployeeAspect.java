@@ -18,7 +18,18 @@ import java.time.Instant;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
-
+/**
+ * This aspect will log all the SQL queries that are taking more time than the threshold specified in configuration file.
+ * The threshold is specified in milliseconds.
+ * The default value is 500 milliseconds.
+ * You can change it as per your requirement.
+ *
+ * This aspect is using AspectJ to intercept the calls to the PreparedStatement execute methods.
+ * It is using Around advice to log the start time and end time of the method execution.
+ * It is also logging the SQL query that is being executed.
+ *
+ * Note: This aspect is specific to MySQL Connector/J. If you are using a different database, you may need to modify the code accordingly.
+ */
 @Aspect
 @Component
 public class EmployeeAspect {

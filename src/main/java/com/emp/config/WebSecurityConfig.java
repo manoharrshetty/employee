@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -37,11 +36,11 @@ public class WebSecurityConfig  {
 
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(req -> req
-                        .requestMatchers(HttpMethod.GET, "/employee/users/**").hasRole("ADMIN")//all request related to users must be an ADMIN
+                        .requestMatchers(HttpMethod.GET, "/employee/user/**").hasRole("ADMIN")//all request related to users must be an ADMIN
                                 .requestMatchers(HttpMethod.GET, "/management/**").hasRole("ADMIN").//springboot actuator/application health
-                        requestMatchers(HttpMethod.POST, "/employee/users").hasRole("ADMIN").
-                        requestMatchers(HttpMethod.PUT, "/employee/users/**").hasRole("ADMIN").
-                        requestMatchers(HttpMethod.DELETE, "/employee/users/**").hasRole("ADMIN").
+                        requestMatchers(HttpMethod.POST, "/employee/user").hasRole("ADMIN").
+                        requestMatchers(HttpMethod.PUT, "/employee/user/**").hasRole("ADMIN").
+                        requestMatchers(HttpMethod.DELETE, "/employee/user/**").hasRole("ADMIN").
                         requestMatchers(HttpMethod.GET, "/employee/emp/**").hasAnyRole("USER", "ADMIN")//all get request must be made by user has USER/ADMIN role configured in the user table.
                                 .requestMatchers(HttpMethod.POST, "/employee/emp").hasAnyRole("USER", "ADMIN").
                         requestMatchers(HttpMethod.PUT, "/employee/emp/**").hasAnyRole("USER", "ADMIN").

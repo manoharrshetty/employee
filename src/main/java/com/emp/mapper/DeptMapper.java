@@ -1,19 +1,29 @@
-package com.emp.mapper;
+ package com.emp.mapper;
 
-import org.apache.ibatis.annotations.Mapper;
-
+import com.emp.dto.DeptDTO;
 import com.emp.model.Dept;
-import com.emp.model.DeptQuery;
-/**MyBatis mapper for Department resource
- * The MyBatis-Spring-Boot-Starter will search, by default, for mappers marked with the @Mapper annotation.
- * @author manoh
- *
- */
-@Mapper
-public interface DeptMapper extends IbatisMapper<Dept,DeptQuery,Integer>{
-	
-    
-    
-    
-	
+import org.springframework.stereotype.Component;
+
+@Component
+public class DeptMapper {
+
+    public DeptDTO toDTO(Dept dept) {
+        if (dept == null) return null;
+        DeptDTO dto = new DeptDTO();
+        dto.setId(dept.getDeptId());
+        dto.setLastModifiedDate(dept.getLastModifiedDate());
+        dto.setName(dept.getName());
+        dto.setVersion(dept.getVersion());
+        return dto;
+    }
+
+    public Dept toEntity(DeptDTO dto) {
+        if (dto == null) return null;
+        Dept dept = new Dept();
+        dept.setDeptId(dto.getId());
+        dept.setName(dto.getName());
+        dept.setLastModifiedDate(dto.getLastModifiedDate());
+        dept.setVersion(dto.getVersion());
+        return dept;
+    }
 }

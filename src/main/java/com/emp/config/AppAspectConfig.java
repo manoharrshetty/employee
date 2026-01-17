@@ -18,7 +18,7 @@ import java.time.ZoneId;
 @Configuration
 public class AppAspectConfig {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
-	private DateTimeFormatter formatter =DateTimeFormatter.ISO_LOCAL_DATE_TIME.withZone(ZoneId.systemDefault());
+	private final DateTimeFormatter formatter =DateTimeFormatter.ISO_LOCAL_DATE_TIME.withZone(ZoneId.systemDefault());
     
     
     @Around("execution(* com.emp..mapper..*.save*(..)) || execution(* com.emp..mapper..*.update*(..))  || execution(* com.emp..mapper..*.delete*(..)) }} execution(* com.emp..mapper..*.find*(..))")

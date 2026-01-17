@@ -1,79 +1,61 @@
 package com.emp.controller;
 
-import java.util.List;
-import java.util.Optional;
-
+import com.emp.dto.UserDTO;
+import com.emp.dto.UserSearchCriteria;
+import com.emp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.emp.model.Users;
-import com.emp.model.UsersQuery;
-import com.emp.service.UsersService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
+@RequestMapping("/employee/user")
 public class UserController {
 	
     @Autowired
-    private UsersService usersService;
-    
-   
-    @RequestMapping(value = "/employee/users",   params = { "usersId"},produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
-    public List<Users> findByUsersId(@RequestParam(value="usersId")  Integer usersId) {
-    	UsersQuery query = new UsersQuery();
-    	query.setId(usersId);
-    	return usersService.findByQuery(query);
-	}
-    
-    /**
-     * produces JSON response with the following request parameters.
-     * Alternatively you can also use  @GetMapping because it is a composed annotation that acts as a shortcut
-	 * for @RequestMapping(method = RequestMethod.GET).
-     * @param empId
-     * @param firstName
-     * @param lastName
-     * @return
-     */
-    @RequestMapping(value = "/employee/users",  produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
-    public List<Users> findByQuery(@ModelAttribute("usersQuery") Optional<UsersQuery> 	usersQuery) {
-    	return usersService.findByQuery(usersQuery.orElse(new UsersQuery()));
-	}
-    
-	
-    
-    
-    
+    private UserService userService;
 
-    
-    //return 201 instead of 200
-    @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/employee/users")
-    public Users save(@RequestBody Users newUsers) {
-    	return usersService.save(newUsers);
+
+    @GetMapping("/{id}")
+    public ResponseEntity<UserDTO> getById(@PathVariable Long id) {
+        UserDTO dto = userService.getById(id);
+        return dto != null ? ResponseEntity.ok(dto) : ResponseEntity.notFound().build();
     }
-    
-    
-  
-    @PutMapping("/employee/users")
-    public Users put(@RequestBody Users users) {
-    	return usersService.update(users);
+
+
+
+    @PostMapping("/search")
+    public ResponseEntity<Page<UserDTO>> search(@RequestBody UserSearchCriteria criteria, Pageable pageable) {
+        Page<UserDTO> page = userService.search(criteria, pageable);
+        return ResponseEntity.ok(page);
     }
-    
-    @DeleteMapping(value = "/employee/users",   params = { "usersId"})
-    public void delete(@RequestParam(value="usersId")  Integer userId) {
-    	 usersService.delete(userId);
-    	 
+
+
+
+
+
+
+
+    @PostMapping
+    public ResponseEntity<UserDTO> create(@RequestBody UserDTO newUser) {
+        UserDTO created = userService.createUser(newUser);
+        return ResponseEntity.status(HttpStatus.CREATED).body(created);
+    }
+
+
+    @PutMapping("/{id}")
+    public ResponseEntity<UserDTO> update(@PathVariable Long id, @RequestBody UserDTO updatedUser) {
+        UserDTO result = userService.updateUser(updatedUser);
+        return result != null ? ResponseEntity.ok(result) : ResponseEntity.notFound().build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        userService.deleteUser(id);
+        return ResponseEntity.noContent().build();
     }
 }
 

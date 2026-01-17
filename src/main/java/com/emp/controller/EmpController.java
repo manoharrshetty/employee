@@ -1,93 +1,70 @@
 package com.emp.controller;
 
-import java.util.List;
-import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.emp.model.Dept;
-import com.emp.model.Emp;
-import com.emp.model.EmpDml;
-import com.emp.model.EmpQuery;
+import com.emp.dto.EmpDTO;
+import com.emp.dto.EmpSearchCriteria;
 import com.emp.service.EmpService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
+@RequestMapping("/employee/emp")
+@RequiredArgsConstructor
 public class EmpController {
-	
+
     @Autowired
     private EmpService empService;
-    
-    
-    
-    @RequestMapping(value = "/employee/emp",   params = { "empId"},produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
-    public List<Emp> findByEmpId(@RequestParam(value="empId")  Integer empId) {
-    	EmpQuery query = new EmpQuery();
-    	query.setId(empId);
-    	return empService.findByQuery(query);
-	}
-    
+
+
+    @GetMapping("/{id}")
+    public ResponseEntity<EmpDTO> getById(@PathVariable Long id) {
+        EmpDTO dto = empService.getById(id);
+        return dto != null ? ResponseEntity.ok(dto) : ResponseEntity.notFound().build();
+    }
+
+
+
+    @PostMapping
+    public ResponseEntity<EmpDTO> create(@RequestBody EmpDTO newEmp) {
+        EmpDTO created = empService.createEmployee(newEmp);
+        return ResponseEntity.status(HttpStatus.CREATED).body(created);
+    }
+
+    @PutMapping
+    public ResponseEntity<EmpDTO> update(@RequestBody EmpDTO updatedEmp) {
+        EmpDTO result = empService.updateEmployee(updatedEmp);
+        return result != null ? ResponseEntity.ok(result) : ResponseEntity.notFound().build();
+    }
+
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        empService.deleteEmployee(id);
+        return ResponseEntity.noContent().build();
+    }
+
     /**
-     * produces JSON response with the following request parameters.
-     * Alternatively you can also use  @GetMapping because it is a composed annotation that acts as a shortcut
-	 * for @RequestMapping(method = RequestMethod.GET).
-     * @param empId
-     * @param firstName
-     * @param lastName
+     *
+     * @param criteria
+     * @param pageable  e.g. https://localhost:8443/employee/emp/search?page=1&size=10&sort=lastName,asc means
+     * page=0 and size=10 control pagination (which slice of results the server returns).
+     * page=0 = first page (Spring Data pages are zero-based).
+     * size=10 = up to 10 items per page.
+     * Offset (row index) = page * size. So page=0,size=10 returns rows with indexes 0..9; page=1,size=10 returns 10..19.
+      *sort=lastName tells Spring Data to order the query results by the lastName property of the Emp entity. By default the direction is ascending; you can set direction explicitly with ,asc or ,desc. Multiple sort params are allowed (applied in order).
      * @return
      */
-    @RequestMapping(value = "/employee/emp",  produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
-    public List<Emp> findByQuery(@ModelAttribute("employeeQuery") Optional<EmpQuery> 	employeeQuery) {
-    	return empService.findByQuery(employeeQuery.orElse(new EmpQuery()));
-	}
-    
-	
-    
-    
-    
+    @PostMapping("/search")
+    public ResponseEntity<Page<EmpDTO>> search(@RequestBody EmpSearchCriteria criteria, Pageable pageable) {
+        Page<EmpDTO> page = empService.search(criteria, pageable);
+        return ResponseEntity.ok(page);
+    }
 
-    
-    //return 201 instead of 200
-    @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/employee/emp")
-    public Emp save(@RequestBody Emp newEmp) {
-   	   	return empService.save(newEmp);
-    }
-    
-    /*
-     * Remember for put and delete body @RequestBody can exist too !!
-     */
-  
-    @PutMapping("/employee/emp")
-    public Emp put(@RequestBody EmpDml updatedEmp) {
-    	Emp emp = new Emp();
-    	emp.setEmpBasic(updatedEmp.getEmpBasic());
-    	Dept dept = new Dept();
-    	dept.setId(updatedEmp.getDeptId());
-    	emp.setDept(dept);
-    	return empService.update(emp);
-    }
-    
-    
-    @DeleteMapping(value = "/employee/emp",   params = { "empId"})
-    public void delete(@RequestParam(value="empId")  Integer empId) {
-    	 empService.delete(empId);
-    	 
-    }
-    
-    
 }
 
 

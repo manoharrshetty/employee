@@ -1,26 +1,26 @@
+
 package com.emp.model;
 
-public class Dept extends Entity{
-	
-   
-    
-    
-   
-	
-	
-	
-    private  String name;
+import jakarta.persistence.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 
-	
 
-	public String getName() {
-		return name;
-	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-    
-	
-    
+@EqualsAndHashCode(callSuper = true)
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table(name = "dept")
+public class Dept extends BasicModel {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "dept_id")
+	private Long deptId;
+
+	@Column(name = "name")
+	private String name;
 }

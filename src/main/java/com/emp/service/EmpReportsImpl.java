@@ -37,7 +37,7 @@ public class EmpReportsImpl implements EmpReports {
             for (Emp emp : empList) {
                 Callable<String> callable = () -> {
                     return
-                            emp.getEmpBasic().getFirstName() + "," + emp.getEmpBasic().getLastName();
+                            emp.getFirstName() + "," + emp.getLastName();
                 };
                 futures.add(executor.submit(callable));
             }
