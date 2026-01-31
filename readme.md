@@ -8,17 +8,26 @@ monitoring,caching etc. are completely handled by framework with little or no co
 insights.
 Extensive use of established enterprise patterns and generics helped in reuse of code,ensuring type safety and improve
 code readability
-Technology stack I am using is Spring Boot,Spring Boot Actuator, Spring Transaction Management,
-Spring Security, MySQL, AspectJ, Spring AI, Redis and Spring Data.
+Technology stack and protocol, I am using is Spring Boot,Spring Boot Actuator, Spring Transaction Management,
+Spring Security, MySQL, AspectJ, Spring AI, Redis , Spring Data,OAuth 2.0,OpenID Connect,GCP Identity Management.
 
 # AI and Spring AI
 
 AI and Spring AI was incorporated into the application to  
-significantly enhance the functionality and efficiency of an employee maintenance REST API.
+significantly enhance the functionality and efficiency of an employee maintenance REST API without locking itself to any
+one vendor.
 Example usage is to get a Personalized Employee Insights .AI can generate personalized insights based on employee
-data.In the case
-of this application,I used OpenAI to recommend training for employee based on their present skills and their career
-goal.
+data.In the case of this application,I used OpenAI to recommend training for employee based on their present skills and
+their career
+goal. Outputs are produced as structured Java DTOs via prompt templates; DTOs are validated (Jakarta Bean Validation)
+and verified by an LLM verifier that returns a verdict and confidence score.
+In future will use enhance the code for evaluating the generated content to ensure the AI model has not produced a
+hallucinated response.
+One method to evaluate the response is to use the AI model itself for evaluation. Select the best AI model for the
+evaluation, which may not be the same model used to generate the response.
+The Spring AI interface for evaluating responses is Evaluator.
+
+I have also used RAP (Retrieval-Augmented Prompting) .It is a pattern that improves LLM outputs by retrieving relevant enterprise context and injecting it into prompts before calling the model. It reduces hallucination and increases factuality and relevance.
 
 Example
 
@@ -37,13 +46,24 @@ platforms.
    vendor, ensuring it remains cloud-agnostic.
 3. Prometheus is used for monitoring and metrics collection, providing flexibility to run on any infrastructure without
    relying on proprietary cloud solutions.
-4. Spring Data and Redis (via Spring Data Redis) are data-source agnostic, allowing the application to integrate with any database or caching solution and avoiding dependency on a specific vendor. Spring Data provides repository-driven, portable data access (JPA, Spring Data JDBC, etc.), 
-   while Redis—configured through Spring Cache and Spring Data Redis—offers a distributed, high-performance cache for scalable caching.
+4. Spring Data and Redis (via Spring Data Redis) are data-source agnostic, allowing the application to integrate with
+   any database or caching solution and avoiding dependency on a specific vendor. Spring Data provides repository-driven,
+   portable data access (JPA, Spring Data JDBC, etc.),
+   while Redis—configured through Spring Cache and Spring Data Redis—offers a distributed, high-performance cache for
+   scalable caching.
 5. Spring Security and Spring Transaction are configured in a modular, flexible way, ensuring the application’s security
    and transaction management work across different systems and environments, without relying on vendor-specific
    security or transaction handling mechanisms.
-   Spring AI is integrated using structured output, prompt templates, and an LLM-based verification pipeline. Outputs are emitted as typed Java objects (POJOs/DTOs) rather than raw JSON and are validated with standard Java validation (e.g., Jakarta Bean Validation) and schema checks. Verification is performed by invoking an LLM verifier which evaluates correctness, consistency, and returns a verification verdict and confidence score; low-confidence or failed verifications trigger retry/reprompt logic or a human-review flag. To reduce hallucination and improve relevance, prompts are augmented with enterprise data via retrieval-augmented prompting (RAP), semantic-similarity checks, and context injection. All prompts, verification results, confidence scores, and audit metadata are logged for monitoring and troubleshooting.
-6. Spring AI is integrated using structured output, prompt templates, and an LLM-based verification pipeline. Outputs are emitted as typed Java objects (POJOs/DTOs) rather than raw JSON and are validated with standard Java validation (e.g., Jakarta Bean Validation) and schema checks. Verification is performed by invoking an LLM verifier which evaluates correctness, consistency, and returns a verification verdict and confidence score; low-confidence or failed verifications trigger retry/reprompt logic or a human-review flag. To reduce hallucination and improve relevance, prompts are augmented with enterprise data via retrieval-augmented prompting (RAP), semantic-similarity checks, and context injection. All prompts, verification results, confidence scores, and audit metadata are logged for monitoring and troubleshooting.
+   This project uses Google OAuth 2.0 / OpenID Connect (OIDC) for authentication.
+   Postman acts as the OAuth client and obtains tokens from Google (IdP/Authorization Server).
+   The Spring Boot REST API acts as a Resource Server, validating the JWT access token on each request.
+   In future versions endpoints will be protected using scopes/claims (and optional role/ownership checks) for authorization.
+
+
+6. Spring AI is integrated using structured output, prompt templates, and an LLM-based verification pipeline. Outputs
+   are emitted as typed Java objects (POJOs/DTOs) rather than raw JSON and are validated with standard Java validation (
+   e.g., Jakarta Bean Validation) and schema checks. Future version will have Verification is performed by invoking an LLM verifier which
+   evaluates correctness, consistency.
 7. AspectJ and Spring AOP (Aspect-Oriented Programming) allow for the modularization of cross-cutting concerns such as
    logging, transaction management, and security, without hard-coding these concerns into business logic. This enables
    the application to maintain its flexibility and portability, allowing for easier maintenance and extension across
@@ -62,11 +82,11 @@ using Spring Boot, Spring Security, AspectJ, Spring AI, Ehcache, and MyBatis:
    coupling.
    Model-View-Controller (MVC): Spring Boot organizes the application into presentation, business logic, and data access
    layers.
-2. Data Access Object (DAO): MyBatis abstracts database interactions, isolating persistence logic from business logic.
+2. Data Access Object (DAO): Spring Data abstracts database interactions, isolating persistence logic from business logic.
 3. Aspect-Oriented Programming (AOP): AspectJ and Spring separate cross-cutting concerns like logging, security, or
    transaction management.
 4. Caching Pattern: Redis optimizes performance by temporarily storing frequently accessed data in memory.
-5. Proxy Pattern: Spring Security uses proxies for access control, while Ehcache applies it for caching mechanisms.
+5. Proxy Pattern: Spring Security uses proxies for access control, while Spring Redis applies it for caching mechanisms.
 6. Observer Pattern: Spring Boot Actuator and events allow monitoring and notifying subscribers of changes or metrics.
 7. Template Method Pattern: Spring Data simplifies database queries using predefined templates for CRUD operations.
 8. Factory Pattern: Spring AI dynamically creates and configures components like machine learning models or services.
@@ -200,10 +220,11 @@ The main benefit of this library is that we can get production-grade tools witho
 features ourselves.
 The actuator mainly exposes operational information about the running application — health, metrics, info, dump, env,
 etc. It uses HTTP endpoints or JMX beans to enable us to interact with it.
-e.g. try 
+e.g. try
 https://localhost:8443/management/metrics/hikaricp.connections will display total mysql connections in the
 pool.
-https://localhost:8443/management/metrics/vm.memory.used will shows the current amount of JVM memory used, measured in bytes.
+https://localhost:8443/management/metrics/vm.memory.used will shows the current amount of JVM memory used, measured in
+bytes.
 
 Health metrics include heap memory used,total idle connections in the connection pool,garbage collection pauses,process
 cpu usage and many more
