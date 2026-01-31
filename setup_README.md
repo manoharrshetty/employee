@@ -20,5 +20,5 @@ docker run -d --name redis -p 6379:6379 --restart unless-stopped redis:7-alpine
 
 
 ## GCP  client id and client secret for oauth2 authentication:
-1. client id :796335542204-2sm2amkaspio19rp4lq973tpadba4qoa.apps.googleusercontent.com
-2. client secret :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
+1. client id :<GCP IDP CLIENT ID>
+2. client secret :<GCP Client secret>
