@@ -19,6 +19,6 @@ if this was already done once, no need to run it again.You can start or stop the
 docker run -d --name redis -p 6379:6379 --restart unless-stopped redis:7-alpine
 
 
-## GCP  client id and client secret for oauth2 authentication:
+## GCP  client id and client secret  for oauth2 authentication:
 1. client id :<GCP IDP CLIENT ID>
 2. client secret :<GCP Client secret>
